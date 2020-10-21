@@ -28,7 +28,7 @@ const createMeal = meal => {
 
 const newInnerHTML =
     <div class="row">
-        <div class="columns-five">
+        <div class="columns five">
             <img src="${meal.srtMealThumb}" alt="Meal Image"></img>
             ${
                 meal.strCategory
@@ -39,7 +39,35 @@ const newInnerHTML =
                 ? `<p><strong>Area:</strong>${meal.strArea}</p>}`
                 : ''
             }
-            $ meal.strTags 
-            ? `<p><strong>Tags:</strong>${meal.strArea}</p>`
+            $ meal.strTags
+            ? `<p><strong>Tags:</strong>${meal.strTags
+                .split(',')
+                .join(',')}</p>`
+            : ''
+            }
+            <h5>Ingredients:</h5>
+            <ul>
+                ${ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+            </ul>
         </div>
+        <div class="colums seven">
+            <h4>${meal.strMeal}</h4>
+            <p>${meal.strInstructions}</p>
+        </div>
+    </div>
+${
+    meal.strYoutube
+        ? `
+    <div class="row">
+    <h5>video recipe</h5>
+    <div class="videoWrapper">
+    <iframe width="420" height="315"
+    src="https://www.youtube.com/embed/${meal.strYoutube.slice(-11)}">
+    </iframe>
+    </div>
     </div>`
+        : ''
+}
+`;
+meal_container.innerHTML = newInnerHTML;
+
